@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Beer as IBeer } from '../../types';
 import { fetchData } from './utils';
 import { useParams } from 'react-router-dom';
+import BeerCard from '../../components/BeerCard';
 
 const Beer = () => {
   const { id } = useParams();
@@ -10,20 +11,15 @@ const Beer = () => {
   // eslint-disable-next-line
   useEffect(fetchData.bind(this, setBeer, id), [id]);
 
+  if (!beer) {
+    return <span>Loading...</span>;
+  }
+
   return (
-    <article>
-      <section>
-        <header>
-          <h1>{beer?.name}</h1>
-        </header>
-        <main>
-          <span>
-            <b>Type: </b> {beer?.brewery_type}
-          </span>
-        </main>
-      </section>
-    </article>
-  );
+    <BeerCard 
+      {...beer}
+    />
+  )
 };
 
 export default Beer;
