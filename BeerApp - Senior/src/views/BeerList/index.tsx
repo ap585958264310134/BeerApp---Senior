@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Beer } from '../../types';
-import { fetchData } from './utils';
 import { Avatar, List, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material';
 import SportsBar from '@mui/icons-material/SportsBar';
 import { useNavigate } from 'react-router-dom';
+import { useBeerData } from 'hooks/useBeerData';
 
 const BeerList = () => {
   const navigate = useNavigate();
-  const [beerList, setBeerList] = useState<Array<Beer>>([]);
 
-  // eslint-disable-next-line
-  useEffect(fetchData.bind(this, setBeerList), []);
+  const {
+    beerData
+  } = useBeerData();
 
   const onBeerClick = (id: string) => navigate(`/beer/${id}`);
 
@@ -22,7 +20,7 @@ const BeerList = () => {
         </header>
         <main>
           <List>
-            {beerList.map((beer) => (
+            {beerData?.map((beer) => (
               <ListItemButton key={beer.id} onClick={onBeerClick.bind(this, beer.id)}>
                 <ListItemAvatar>
                   <Avatar>
