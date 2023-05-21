@@ -1,0 +1,10 @@
+.FiltersStack {
+  & > * {
+    width: 33.33%;
+  }
+}
+
+.FilterTypeInputLabel.FilterTypeInputLabel {
+  background-color: white;
+  padding-right: 10px;
+}

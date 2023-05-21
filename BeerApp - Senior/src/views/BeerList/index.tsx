@@ -1,9 +1,10 @@
 import { Avatar, List, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material';
 import SportsBar from '@mui/icons-material/SportsBar';
+import BeerList from 'components/BeerList';
 import { useNavigate } from 'react-router-dom';
 import { useBeerData } from 'hooks/useBeerData';
 
-const BeerList = () => {
+const BeerListView = () => {
   const navigate = useNavigate();
 
   const {
@@ -19,22 +20,15 @@ const BeerList = () => {
           <h1>BeerList page</h1>
         </header>
         <main>
-          <List>
-            {beerData?.map((beer) => (
-              <ListItemButton key={beer.id} onClick={onBeerClick.bind(this, beer.id)}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <SportsBar />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={beer.name} secondary={beer.brewery_type} />
-              </ListItemButton>
-            ))}
-          </List>
+          {beerData && <BeerList
+            beers={beerData}
+            onElementClick={onBeerClick}
+            elementsPerPage={5}
+          />}
         </main>
       </section>
     </article>
   );
 };
 
-export default BeerList;
+export default BeerListView;
