@@ -1,5 +1,5 @@
 import { Beer, TYPE } from "types";
-import { SORT_DIRECTION } from "./useBeerList";
+import { ExtendedBeer, SORT_DIRECTION } from "./useBeerList";
 import { BeerListProps } from ".";
 
 export function getNoOfPages({
@@ -82,4 +82,17 @@ export function getElementsToRender({
   }
 
   return beersToDisplay;
+}
+
+export function applyFavs({
+  beers,
+  favs
+}: {
+  beers: Beer[];
+  favs: string[];
+}): ExtendedBeer[] {
+  return beers.map(beer => ({
+    ...beer,
+    isFavourite: favs.includes(beer.id)
+  }))
 }

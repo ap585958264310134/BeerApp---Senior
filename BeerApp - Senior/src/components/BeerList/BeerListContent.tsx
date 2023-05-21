@@ -38,6 +38,7 @@ export default function BeerListContent(props: BeerListContentProps) {
           id: beerProps.id,
           name: beerProps.name,
           breweryType: beerProps.brewery_type,
+          isFavourite: state.favs.includes(beerProps.id),
           onClick: props.onElementClick,
           onElementFavClick
         }))}

@@ -6,7 +6,7 @@ import handle from 'utils/error';
 
 export function useBeerData() {
   const [isLoading, setLoadingStatus] = useState(false);
-  const [beerData, setBeerData] = useState<Array<Beer> | null>(null);
+  const [beerData, setBeerData] = useState<Array<Beer>>([]);
   
   useEffect(() => {
     const fetchData = async () => {

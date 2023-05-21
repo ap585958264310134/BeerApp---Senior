@@ -18,10 +18,13 @@ function Fav(props: {
   onElementFavClick: (id: string) => void;
 }) {
   const icon = props.isFavourite ? <StarIcon /> : <StarBorderIcon />;
-
+  
   return (
     <div
-      onClick={props.onElementFavClick.bind(null, props.id)}
+      onClick={(ev) => {
+        ev.stopPropagation();
+        props.onElementFavClick(props.id);
+      }}
     >
       {icon}
     </div>
@@ -34,7 +37,7 @@ export default function BeerListElement(props: BeerListElementProps) {
       <Stack spacing={2} direction="row" alignItems="center">
         <Fav
           id={props.id}
-          isFavourite={false}
+          isFavourite={!!props.isFavourite}
           onElementFavClick={props.onElementFavClick}
         />
         <ListItemAvatar>

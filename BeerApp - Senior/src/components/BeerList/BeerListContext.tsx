@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import { ACTIONTYPE, UseBeerListState, useBeerList } from './useBeerList';
-import { BeerListProps } from '.';
+import { useBeerData } from 'hooks/useBeerData';
 
 const BeerListContext = createContext<UseBeerListState | null>(null);
 
@@ -16,16 +16,21 @@ export function useBeerListDispatch() {
 }
 
 export function BeerListProvider({ 
-  children,
-  props
+  children
 }: { 
-  children: React.ReactNode,
-  props: BeerListProps
+  children: React.ReactNode
 }) {
+  const {
+    beerData
+  } = useBeerData();
+
   const {
     state,
     dispatch
-  } = useBeerList(props);
+  } = useBeerList({
+    beers: beerData || [],
+    elementsPerPage: 5
+  });
 
   return (
     <BeerListContext.Provider value={state}>

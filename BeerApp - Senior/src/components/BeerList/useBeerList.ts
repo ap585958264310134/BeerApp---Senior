@@ -5,7 +5,8 @@ import {
   getNoOfPages,
   filterElements,
   sortElements,
-  getElementsToRender
+  getElementsToRender,
+  applyFavs
 } from './useBeerListUtils';
 
 export enum SORT_DIRECTION {
@@ -23,9 +24,13 @@ export type ACTIONTYPE =
 
 interface UseBeerListProps extends Pick<BeerListProps, 'beers' | 'elementsPerPage'> {}
 
+export interface ExtendedBeer extends Beer {
+  isFavourite: boolean;
+}
+
 export interface UseBeerListState {
   noOfPages: number;
-  elementsToDisplay: Beer[];
+  elementsToDisplay: ExtendedBeer[];
   currentPage: number;
   nameFilter: string;
   nameSorting: SORT_DIRECTION;
@@ -110,11 +115,16 @@ export function useBeerList({
     elementsPerPage
   });
 
-  const elementsToDisplay = getElementsToRender({
+  const elementsToDisplayWithoutFav = getElementsToRender({
     beers: filteredBeers,
     elementsPerPage,
     currentPage,
     setCurrentPage: (page: number) => dispatch({ type: 'setCurrentPage', payload: page })
+  });
+
+  const elementsToDisplay = applyFavs({
+    beers: elementsToDisplayWithoutFav,
+    favs
   });
 
   const state: UseBeerListState = {
