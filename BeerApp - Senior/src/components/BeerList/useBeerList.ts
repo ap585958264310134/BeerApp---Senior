@@ -18,7 +18,8 @@ export type ACTIONTYPE =
   | { type: 'setCurrentPage', payload: number }
   | { type: 'setNameFilter', payload: string }
   | { type: 'setNameSorting', payload: SORT_DIRECTION }
-  | { type: 'setBreweryTypeFilter', payload: Array<TYPE> };
+  | { type: 'setBreweryTypeFilter', payload: Array<TYPE> }
+  | { type: 'setFavs', payload: Array<string> };
 
 interface UseBeerListProps extends Pick<BeerListProps, 'beers' | 'elementsPerPage'> {}
 
@@ -29,6 +30,7 @@ export interface UseBeerListState {
   nameFilter: string;
   nameSorting: SORT_DIRECTION;
   breweryTypeFilter: Array<TYPE>;
+  favs: Array<string>;
 }
 
 interface InitialState {
@@ -36,13 +38,15 @@ interface InitialState {
   nameFilter: string;
   nameSorting: SORT_DIRECTION;
   breweryTypeFilter: Array<TYPE>;
+  favs: Array<string>;
 }
 
 const initialState: InitialState = {
   currentPage: 1,
   nameFilter: '',
   nameSorting: SORT_DIRECTION.DEFAULT,
-  breweryTypeFilter: []
+  breweryTypeFilter: [],
+  favs: []
 };
 
 function reducer(state: typeof initialState, action: ACTIONTYPE) {
@@ -68,6 +72,11 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
         ...state,
         breweryTypeFilter: action.payload
       }
+    case 'setFavs':
+      return {
+        ...state,
+        favs: action.payload
+      }
     default:
       return state;
   }
@@ -81,7 +90,8 @@ export function useBeerList({
     currentPage,
     nameFilter,
     nameSorting,
-    breweryTypeFilter
+    breweryTypeFilter,
+    favs
   }, dispatch] = useReducer(reducer, initialState);
 
   const filteredBeers = filterElements({
@@ -113,7 +123,8 @@ export function useBeerList({
     currentPage,
     nameFilter,
     nameSorting,
-    breweryTypeFilter
+    breweryTypeFilter,
+    favs
   };
 
   return {
