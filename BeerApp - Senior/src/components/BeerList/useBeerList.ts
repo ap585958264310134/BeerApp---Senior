@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import type { BeerListProps } from '.';
 import type { Beer, TYPE } from 'types';
 import {
@@ -87,6 +87,8 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
   }
 }
 
+const LOCAL_STORAGE_KEY = 'USE_BEER_LIST';
+
 export function useBeerList({
   beers,
   elementsPerPage
@@ -97,7 +99,10 @@ export function useBeerList({
     nameSorting,
     breweryTypeFilter,
     favs
-  }, dispatch] = useReducer(reducer, initialState);
+  }, dispatch] = useReducer(reducer, initialState, () => {
+    const value = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return value ? JSON.parse(value) : initialState;
+  });
 
   const filteredBeers = filterElements({
     beers,
@@ -136,6 +141,18 @@ export function useBeerList({
     breweryTypeFilter,
     favs
   };
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    currentPage,
+    nameFilter,
+    nameSorting,
+    breweryTypeFilter,
+    favs, 
+    dispatch
+  ]);
 
   return {
     state,

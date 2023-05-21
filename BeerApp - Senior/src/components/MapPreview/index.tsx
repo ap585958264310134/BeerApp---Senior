@@ -1,5 +1,6 @@
 import '../../../node_modules/leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, CircleMarker } from 'react-leaflet';
+import { useOnline } from 'hooks/useOnline';
 
 interface MapPreviewProps {
   className?: string;
@@ -8,6 +9,12 @@ interface MapPreviewProps {
 }
 
 function MyMapComponent(props: MapPreviewProps) {
+  const isOnline = useOnline();
+
+  if (!isOnline) {
+    return null;
+  }
+
   return (
     <div className={`${props.className}`}>
       <MapContainer

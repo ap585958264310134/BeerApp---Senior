@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Beer as IBeer } from '../../types';
-import { fetchData } from './utils';
 import { useParams } from 'react-router-dom';
 import BeerCard from '../../components/BeerCard';
+import { useBeerData } from 'hooks/useBeerData';
 
 const Beer = () => {
   const { id } = useParams();
-  const [beer, setBeer] = useState<IBeer>();
+  const {
+    beerData
+  } = useBeerData();
 
-  // eslint-disable-next-line
-  useEffect(fetchData.bind(this, setBeer, id), [id]);
-
+  const beer = beerData.find(beer => beer.id === id);
+  
   if (!beer) {
     return <span>Loading...</span>;
   }
