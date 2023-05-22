@@ -33,6 +33,7 @@ function MyMapComponent(props: MapPreviewProps) {
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          errorTileUrl="/mapError.png"
         />
           <CircleMarker center={mapContainerCenter} />
       </MapContainer>

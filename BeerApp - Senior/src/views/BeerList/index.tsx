@@ -1,5 +1,3 @@
-import { Avatar, List, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material';
-import SportsBar from '@mui/icons-material/SportsBar';
 import BeerList from 'components/BeerList';
 import { useNavigate } from 'react-router-dom';
 import { useBeerData } from 'hooks/useBeerData';
