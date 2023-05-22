@@ -18,3 +18,8 @@ root.render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js', { scope: '/' });
+}
+
