@@ -95,6 +95,27 @@ describe('useBeerList', () => {
     ]);
   });
   
+  it('handles elementsToDisplayFavs', async () => {
+    const result = await basicRender();
+
+    act(() => {
+      result.current.dispatch({
+        type: 'setFavs',
+        payload: ['9c5a66c8-cc13-416f-a5d9-0a769c87d318']
+      })
+      result.current.dispatch({
+        type: 'setNameFilter',
+        payload: 'xxxxxxxxx'
+      })
+    });
+
+    await waitFor(() => expect(result.current.state.favs).toHaveLength(1));
+    expect(result.current.state.elementsToDisplayFavs).toEqual([
+      ...mockFavs(TEST_DATA.slice(0, 1)),
+      ...mockFavs(TEST_DATA.slice(1, 2), true),
+      ...mockFavs(TEST_DATA.slice(2, 4))
+    ]);
+  })
 });
 
 export {};

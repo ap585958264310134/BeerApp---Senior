@@ -18,10 +18,8 @@ function getFiles(dir, files_) {
 const directoryPath = path.join(__dirname, 'build');
 const files = getFiles(directoryPath);
 const clearedFiles = files
-  .map(file => file.split(directoryPath)[1])
-  .filter(file => file !== '/sw.js');
-console.log(__dirname)
-console.log(clearedFiles);
+  .map(file => file.split(directoryPath)[1]);
+  // .filter(file => file !== '/sw.js');
 
 const SW_FILE = 'build/sw.js';
 const data = fs.readFileSync(SW_FILE, 'utf8');

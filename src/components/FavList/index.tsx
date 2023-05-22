@@ -17,7 +17,7 @@ export default function FavList() {
     return null;
   }
 
-  const favElements = state.elementsToDisplay.filter(f => f.isFavourite);
+  const favElements = state.elementsToDisplayFavs.filter(f => f.isFavourite);
 
   return (
     <Card>
@@ -26,7 +26,7 @@ export default function FavList() {
           Favourite items
         </Typography>
         <List>
-          {state.elementsToDisplay.filter(f => f.isFavourite).map((beer, index) => (
+          {favElements.filter(f => f.isFavourite).map((beer, index) => (
             <ListItem key={index.toString()} disableGutters>
               <Link component={RouterLink} to={`/beer/${beer.id}`}>
                 {beer.name}

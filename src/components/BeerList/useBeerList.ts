@@ -22,7 +22,9 @@ export type ACTIONTYPE =
   | { type: 'setBreweryTypeFilter', payload: Array<TYPE> }
   | { type: 'setFavs', payload: Array<string> };
 
-interface UseBeerListProps extends Pick<BeerListProps, 'beers' | 'elementsPerPage'> {}
+interface UseBeerListProps extends Pick<BeerListProps, 'beers' | 'elementsPerPage'> {
+  skipFilters?: boolean;
+}
 
 export interface ExtendedBeer extends Beer {
   isFavourite: boolean;
@@ -31,6 +33,7 @@ export interface ExtendedBeer extends Beer {
 export interface UseBeerListState {
   noOfPages: number;
   elementsToDisplay: ExtendedBeer[];
+  elementsToDisplayFavs: ExtendedBeer[];
   currentPage: number;
   nameFilter: string;
   nameSorting: SORT_DIRECTION;
@@ -131,9 +134,15 @@ export function useBeerList({
     favs
   });
 
+  const elementsToDisplayFavs = applyFavs({
+    beers,
+    favs
+  });
+
   const state: UseBeerListState = {
     noOfPages,
     elementsToDisplay,
+    elementsToDisplayFavs,
     currentPage,
     nameFilter,
     nameSorting,
