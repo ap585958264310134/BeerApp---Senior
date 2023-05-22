@@ -19,7 +19,7 @@ root.render(
   </React.StrictMode>
 );
 
-if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js', { scope: '/' });
+if('serviceWorker' in navigator && process.env.NODE_ENV !== 'development') {
+  navigator.serviceWorker.register('/sw.js', { scope: '/' });
 }
 

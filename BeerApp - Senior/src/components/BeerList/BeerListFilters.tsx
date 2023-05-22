@@ -6,7 +6,6 @@ import { TYPE } from  'types';
 import MenuItem from '@mui/material/MenuItem';
 import { useBeerListState, useBeerListDispatch } from './BeerListContext';
 import { useCallback } from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Stack from '@mui/material/Stack';
@@ -51,7 +50,6 @@ export default function BeerListFilters() {
           placeholder="Search..."
           value={state.nameFilter}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            console.log('event.target.value', event.target.value)
             setNameFilter(event.target.value);
           }}
         />
@@ -69,7 +67,7 @@ export default function BeerListFilters() {
           <InputLabel 
             id="filter-type-input-label"
             className={styles.FilterTypeInputLabel}
-          >Age</InputLabel>
+          >Type</InputLabel>
           <Select
             multiple
             labelId="filter-type-input-label"

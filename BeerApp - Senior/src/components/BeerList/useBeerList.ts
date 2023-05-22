@@ -62,7 +62,6 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
         currentPage: action.payload
       };
     case 'setNameFilter':
-      console.log('setNameFilter', action.payload)
       return {
         ...state,
         nameFilter: action.payload

@@ -4,8 +4,8 @@ import { useOnline } from 'hooks/useOnline';
 
 interface MapPreviewProps {
   className?: string;
-  lat: number;
-  lng: number;
+  lat: number | null;
+  lng: number | null;
 }
 
 function MyMapComponent(props: MapPreviewProps) {
@@ -15,17 +15,26 @@ function MyMapComponent(props: MapPreviewProps) {
     return null;
   }
 
+  if (props.lat === null || props.lng === null) {
+    return null;
+  }
+
+  const mapContainerCenter = {
+    lat: props.lat,
+    lng: props.lng
+  };
+
   return (
     <div className={`${props.className}`}>
       <MapContainer
-        center={props}
+        center={mapContainerCenter}
         zoom={5}
         style={{height: '100%'}}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-          <CircleMarker center={props} />
+          <CircleMarker center={mapContainerCenter} />
       </MapContainer>
     </div>
   );

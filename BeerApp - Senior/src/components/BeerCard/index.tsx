@@ -15,6 +15,10 @@ export type BeerCardProps = Pick<
   'address_2' | 'address_3' | 'city' | 'state' | 'country' | 'longitude' | 'latitude'
 >;
 
+function convertCoord(coord: string): number | null {
+  return coord ? Number(coord) : null;
+}
+
 function Address({lines}: {lines: (string | undefined)[]}) {
   return (
     <div className={styles.addressContainer}>
@@ -40,8 +44,8 @@ export default function BeerCard(props: BeerCardProps) {
           </Typography>
           <MapPreview 
             className={styles.mapContainer}
-            lat={ Number(props.latitude) }
-            lng={ Number(props.longitude) }
+            lat={ convertCoord(props.latitude) }
+            lng={ convertCoord(props.longitude) }
           />
           <Address 
             lines={[props.address_1, props.address_2, props.address_3]}

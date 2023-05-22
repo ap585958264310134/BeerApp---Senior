@@ -23,7 +23,7 @@ export default function FavList() {
     <Card>
       <CardContent>
         <Typography variant="h5">
-          Saved items
+          Favourite items
         </Typography>
         <List>
           {state.elementsToDisplay.filter(f => f.isFavourite).map((beer, index) => (
@@ -36,7 +36,7 @@ export default function FavList() {
         </List>
         {!favElements.length && (
           <Typography color="text.secondary">
-            No saved items
+            No favourite items
           </Typography>
         )}
       </CardContent>
@@ -46,7 +46,7 @@ export default function FavList() {
           size='small'
           onClick={clearFavs}
         >
-          Remove all items
+          Clear all items
         </Button>
       </CardActions>
     </Card>
