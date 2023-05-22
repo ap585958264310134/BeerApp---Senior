@@ -8,8 +8,6 @@ const TEST_DATA = JSON.parse('[{"id":"5128df48-79fc-4f0f-8b52-d06be54d0cec","nam
 
 
 async function basicRender() {
-  window.localStorage.clear();
-
   const {
     result
   } = renderHook(() => useBeerList({
@@ -30,6 +28,10 @@ function mockFavs(beers: Beer[], valueToApply: boolean = false): ExtendedBeer[] 
 }
 
 describe('useBeerList', () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+  })
+
   it('returns something', async () => {
     const result = await basicRender();
 
@@ -87,7 +89,6 @@ describe('useBeerList', () => {
     });
 
     await waitFor(() => expect(result.current.state.favs).toHaveLength(1));
-    console.log(result.current.state)
     expect(result.current.state.elementsToDisplay).toEqual([
       ...mockFavs(TEST_DATA.slice(0, 1)),
       ...mockFavs(TEST_DATA.slice(1, 2), true)
